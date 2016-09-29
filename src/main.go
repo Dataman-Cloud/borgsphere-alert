@@ -8,5 +8,5 @@ import (
 )
 
 func main() {
-	log.Info("vim-go", config.GetConfig().AlertPort)
+	log.Info("port: ", config.GetConfig().AlertPort)
 }
