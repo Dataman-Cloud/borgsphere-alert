@@ -13,7 +13,9 @@ import (
 )
 
 type Config struct {
-	AlertPort string `env:"ALERT_PORT",required:"true"`
+	AlertPort     string `env:"ALERT_PORT",required:"true"`
+	AlertDbDriver string `env:"ALERT_DB_DRIVER",required:"true"`
+	AlertDbDSN    string `env:"ALERT__DB_DSN",required:"true"`
 }
 
 var config *Config
