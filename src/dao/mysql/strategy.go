@@ -18,6 +18,9 @@ type mysqlStore struct {
 
 func InitMysqlStore() *mysqlStore {
 	if db, err := gorm.Open(config.GetConfig().AlertDbDriver, config.GetConfig().AlertDbDSN); err == nil {
+		return &mysqlStore{
+			Client: db,
+		}
 	} else {
 	}
 	return &mysqlStore{}
