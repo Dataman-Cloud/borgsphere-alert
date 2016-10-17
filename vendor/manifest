@@ -8,6 +8,115 @@
 			"revision": "3ec0642a7fb6488f65b06f9040adc67e3990296a",
 			"branch": "master",
 			"notests": true
+		},
+		{
+			"importpath": "github.com/denisenkom/go-mssqldb",
+			"repository": "https://github.com/denisenkom/go-mssqldb",
+			"vcs": "git",
+			"revision": "fbf0a491e5ec011522c8870da9b0553135e2f9da",
+			"branch": "master",
+			"notests": true
+		},
+		{
+			"importpath": "github.com/gin-gonic/gin",
+			"repository": "https://github.com/gin-gonic/gin",
+			"vcs": "git",
+			"revision": "f931d1ea80ae95a6fc739213cdd9399bd2967fb6",
+			"branch": "develop",
+			"notests": true
+		},
+		{
+			"importpath": "github.com/go-sql-driver/mysql",
+			"repository": "https://github.com/go-sql-driver/mysql",
+			"vcs": "git",
+			"revision": "0b58b37b664c21f3010e836f1b931e1d0b0b0685",
+			"branch": "master",
+			"notests": true
+		},
+		{
+			"importpath": "github.com/gocql/gocql",
+			"repository": "https://github.com/gocql/gocql",
+			"vcs": "git",
+			"revision": "ffae44103aa14ada9e2b342329f44ce354f399fd",
+			"branch": "master",
+			"notests": true
+		},
+		{
+			"importpath": "github.com/golang/protobuf/proto",
+			"repository": "https://github.com/golang/protobuf",
+			"vcs": "git",
+			"revision": "87c000235d3d852c1628dc9490cd21ab36a7d69f",
+			"branch": "master",
+			"path": "/proto",
+			"notests": true
+		},
+		{
+			"importpath": "github.com/golang/protobuf/ptypes/any",
+			"repository": "https://github.com/golang/protobuf",
+			"vcs": "git",
+			"revision": "87c000235d3d852c1628dc9490cd21ab36a7d69f",
+			"branch": "master",
+			"path": "ptypes/any",
+			"notests": true
+		},
+		{
+			"importpath": "github.com/jinzhu/gorm",
+			"repository": "https://github.com/jinzhu/gorm",
+			"vcs": "git",
+			"revision": "5ec2f6ceb66dbb99077a2b48a5a963d073d5459d",
+			"branch": "master",
+			"notests": true
+		},
+		{
+			"importpath": "github.com/lib/pq",
+			"repository": "https://github.com/lib/pq",
+			"vcs": "git",
+			"revision": "50761b0867bd1d9d069276790bcd4a3bccf2324a",
+			"branch": "master",
+			"notests": true
+		},
+		{
+			"importpath": "github.com/manucorporat/sse",
+			"repository": "https://github.com/manucorporat/sse",
+			"vcs": "git",
+			"revision": "ee05b128a739a0fb76c7ebd3ae4810c1de808d6d",
+			"branch": "master",
+			"notests": true
+		},
+		{
+			"importpath": "github.com/mattes/migrate/driver",
+			"repository": "https://github.com/mattes/migrate",
+			"vcs": "git",
+			"revision": "ce1b59bb819416ca67422929b1cb48bb342720b6",
+			"branch": "master",
+			"path": "driver",
+			"notests": true
+		},
+		{
+			"importpath": "github.com/mattes/migrate/file",
+			"repository": "https://github.com/mattes/migrate",
+			"vcs": "git",
+			"revision": "ce1b59bb819416ca67422929b1cb48bb342720b6",
+			"branch": "master",
+			"path": "/file",
+			"notests": true
+		},
+		{
+			"importpath": "github.com/mattes/migrate/migrate/direction",
+			"repository": "https://github.com/mattes/migrate",
+			"vcs": "git",
+			"revision": "ce1b59bb819416ca67422929b1cb48bb342720b6",
+			"branch": "master",
+			"path": "migrate/direction",
+			"notests": true
+		},
+		{
+			"importpath": "gopkg.in/go-playground/validator.v8",
+			"repository": "https://gopkg.in/go-playground/validator.v8",
+			"vcs": "git",
+			"revision": "5f57d2222ad794d0dffb07e664ea05e2ee07d60c",
+			"branch": "master",
+			"notests": true
 		}
 	]
 }
