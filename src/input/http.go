@@ -1,7 +1,9 @@
 package input
 
 import (
+	"encoding/json"
 	"fmt"
+	"io/ioutil"
 	"net/http"
 
 	"github.com/Dataman-Cloud/borgsphere-alert/src/filter"
@@ -29,10 +31,17 @@ func init() {
 	RegisterInputModule("http", httpInput)
 }
 
-func (h *HTTPInput) CreatServer() {
+func (h *HTTPInput) CreatServer(data map[string]interface{}) {
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		filter.GetFilter().Msg <- "this is a test"
-		fmt.Fprintf(w, "Hello astaxie!")
+		defer r.Body.Close()
+		msg, err := ioutil.ReadAll(r.Body)
+		if err != nil {
+			log.Errorf("get http requset body error: %v", err)
+			return
+		}
+		data["message"] = string(msg)
+		strdata, _ := json.Marshal(data)
+		filter.GetFilter().Msg <- string(strdata)
 	})
 	http.ListenAndServe(fmt.Sprintf("%s:%d", h.Host, h.Port), nil)
 }

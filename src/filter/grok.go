@@ -30,16 +30,17 @@ func init() {
 	RegistryFilterModule("grok", gs)
 }
 
-func (g *Grok) Read(msg string) map[string]string {
-	source := map[string]string{"message": msg}
+func (g *Grok) Read(msg map[string]interface{}) map[string]interface{} {
 	for _, reg := range g.Match {
-		if values, err := g.Gk.Parse(reg, msg); err == nil && len(values) > 0 {
-			values["message"] = msg
-			return values
+		if values, err := g.Gk.Parse(reg, msg["message"].(string)); err == nil && len(values) > 0 {
+			for k, v := range values {
+				msg[k] = v
+			}
+			return msg
 		} else {
-			source["tag"] = "grokparsefailed"
+			msg["tag"] = "grokparsefailed"
 		}
 	}
 
-	return source
+	return msg
 }

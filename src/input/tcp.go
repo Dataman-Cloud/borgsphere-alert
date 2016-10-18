@@ -1,6 +1,7 @@
 package input
 
 import (
+	"encoding/json"
 	"net"
 
 	"github.com/Dataman-Cloud/borgsphere-alert/src/filter"
@@ -10,6 +11,7 @@ import (
 )
 
 type TCPInput struct {
+	Fileds map[string]string `yaml:"fields"`
 	Host   string
 	Port   int
 	Server *net.TCPListener
@@ -31,16 +33,13 @@ func init() {
 	RegisterInputModule("tcp", tcpInput)
 }
 
-func (t *TCPInput) CreatServer() {
+func (t *TCPInput) CreatServer(data map[string]interface{}) {
 	var err error
 	t.Server, err = net.ListenTCP("tcp", &net.TCPAddr{net.ParseIP(t.Host), t.Port, ""})
 	if err != nil {
 		log.Fatalf("create tcp listener error: %v", err)
 	}
-
 	defer t.Server.Close()
-
-	go filter.GetFilter().Read()
 
 	for {
 		conn, err := t.Server.AcceptTCP()
@@ -51,13 +50,15 @@ func (t *TCPInput) CreatServer() {
 
 		defer conn.Close()
 		go func() {
-			data := make([]byte, 1024)
+			msg := make([]byte, 1024)
 			for {
-				i, err := conn.Read(data)
+				i, err := conn.Read(msg)
 				if err != nil {
 					break
 				}
-				filter.GetFilter().Msg <- string(data[0:i])
+				data["message"] = string(msg[0:i])
+				strdata, _ := json.Marshal(data)
+				filter.GetFilter().Msg <- string(strdata)
 			}
 		}()
 	}

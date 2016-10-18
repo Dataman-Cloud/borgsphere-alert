@@ -1,17 +1,15 @@
 package filter
 
 import (
+	"encoding/json"
 	"reflect"
-	"sync"
 
-	//"github.com/Dataman-Cloud/borgsphere-alert/src/utils/config"
 	"github.com/Dataman-Cloud/borgsphere-alert/src/output"
+	//"github.com/Dataman-Cloud/borgsphere-alert/src/utils/config"
 	//log "github.com/Sirupsen/logrus"
 )
 
 type Filter struct {
-	RMutex  sync.Mutex
-	CMutex  sync.Mutex
 	Msg     chan string
 	Counter map[string]uint64
 	Filters map[string]interface{}
@@ -28,6 +26,8 @@ func RegistryFilterModule(module string, entity interface{}) {
 		}
 	}
 	f.Filters[module] = entity
+
+	go f.Read()
 }
 
 func GetFilter() *Filter {
@@ -38,11 +38,15 @@ func (f *Filter) Read() {
 	for {
 		select {
 		case msg := <-f.Msg:
+			var rm map[string]interface{}
+			json.Unmarshal([]byte(msg), &rm)
+
 			var rv interface{}
+
 			for _, v := range f.Filters {
 				rv = reflect.ValueOf(v).
 					MethodByName("Read").
-					Call([]reflect.Value{reflect.ValueOf(msg)})[0].
+					Call([]reflect.Value{reflect.ValueOf(rm)})[0].
 					Interface()
 			}
 

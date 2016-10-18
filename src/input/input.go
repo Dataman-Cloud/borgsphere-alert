@@ -28,7 +28,10 @@ func RunInput() {
 	for k, _ := range config.GetConfig().Input {
 		obj, ok := inputObject.InputServer[k]
 		if ok {
-			go reflect.ValueOf(obj).MethodByName("CreatServer").Call([]reflect.Value{})
+			go reflect.
+				ValueOf(obj).
+				MethodByName("CreatServer").
+				Call([]reflect.Value{reflect.ValueOf(make(map[string]interface{}))})
 		} else {
 			log.Errorf("cannot find input: %s", k)
 		}
