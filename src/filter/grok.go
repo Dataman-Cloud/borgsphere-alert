@@ -14,7 +14,11 @@ type Grok struct {
 
 func init() {
 	gs := new(Grok)
-	err := config.ParseConfig(config.GetConfig().Filter["grok"], gs)
+	gk, ok := config.GetConfig().GetFilterByModule("grok")
+	if !ok {
+		return
+	}
+	err := config.ParseConfig(gk, gs)
 	if err != nil {
 		log.Fatalf("parse grok config to yaml error: %v", err)
 		return

@@ -6,14 +6,14 @@ import (
 	"io/ioutil"
 
 	log "github.com/Sirupsen/logrus"
-	"gopkg.in/yaml.v2"
+	"github.com/ghodss/yaml"
 )
 
 type Config struct {
-	Addr   string                            `yaml:"addr"`
-	Input  map[string]map[string]interface{} `yaml:"input"`
-	Filter map[string]map[string]interface{} `yaml:"filter"`
-	Output map[string]map[string]interface{} `yaml:"output"`
+	Addr   string                              `yaml:"addr"`
+	Input  map[string]map[string]interface{}   `yaml:"input"`
+	Filter []map[string]map[string]interface{} `yaml:"filter"`
+	Output map[string]map[string]interface{}   `yaml:"output"`
 }
 
 var config *Config
@@ -49,4 +49,13 @@ func ParseConfig(data interface{}, target interface{}) error {
 	}
 
 	return nil
+}
+
+func (c *Config) GetFilterByModule(module string) (map[string]interface{}, bool) {
+	for _, v := range c.Filter {
+		if entity, ok := v[module]; ok {
+			return entity, ok
+		}
+	}
+	return nil, false
 }

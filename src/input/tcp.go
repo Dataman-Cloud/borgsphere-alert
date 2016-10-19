@@ -11,7 +11,7 @@ import (
 )
 
 type TCPInput struct {
-	Fileds map[string]string `yaml:"fields"`
+	Fileds map[string]interface{} `yaml:"fields" json:"fields"`
 	Host   string
 	Port   int
 	Server *net.TCPListener
@@ -34,6 +34,7 @@ func init() {
 }
 
 func (t *TCPInput) CreatServer(data map[string]interface{}) {
+	data = t.Fileds
 	var err error
 	t.Server, err = net.ListenTCP("tcp", &net.TCPAddr{net.ParseIP(t.Host), t.Port, ""})
 	if err != nil {

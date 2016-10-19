@@ -13,8 +13,9 @@ import (
 )
 
 type HTTPInput struct {
-	Host string
-	Port int
+	Fileds map[string]interface{} `yaml:"fields" json:"fields"`
+	Host   string
+	Port   int
 }
 
 func init() {
@@ -33,6 +34,7 @@ func init() {
 
 func (h *HTTPInput) CreatServer(data map[string]interface{}) {
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		data = t.Fileds
 		defer r.Body.Close()
 		msg, err := ioutil.ReadAll(r.Body)
 		if err != nil {

@@ -18,7 +18,11 @@ func init() {
 	m := &Metrics{
 		Counter: make(map[string]interface{}),
 	}
-	err := config.ParseConfig(config.GetConfig().Filter["metrics"], m)
+	ms, ok := config.GetConfig().GetFilterByModule("metrics")
+	if !ok {
+		return
+	}
+	err := config.ParseConfig(ms, m)
 	if err != nil {
 		log.Fatalf("parse metrics config error: %v", err)
 		return
