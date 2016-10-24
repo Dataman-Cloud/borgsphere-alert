@@ -1,0 +1,24 @@
+addr: ":8058"
+input:
+  tcp:
+    host: ""
+    port: 3333
+    fields:
+      test: "value"
+  http:
+    host: ""
+    port: 3334
+filter:
+  - grok:
+      match: ["%{IPORHOST:clientip} %{USER:ident} %{USER:auth} \\[%{HTTPDATE:timestamp}\\] \"(?:%{WORD:verb} %{NOTSPACE:request}(?: HTTP/%{NUMBER:httpversion})?|%{DATA:rawrequest})\" %{NUMBER:response} (?:%{NUMBER:bytes}|-)"]
+  - json:
+      field: "message"
+  - prometheus:
+      type: "counter"
+      name: "YiQinGuo"
+      help: "i love you"
+      fields: ["auth,clientip", "eventType,appId,taskStatus"]
+output:
+  tcp:
+    host: "127.0.0.1"
+    port: 2233
