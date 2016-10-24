@@ -18,6 +18,7 @@ func init() {
 	if !ok {
 		return
 	}
+
 	err := config.ParseConfig(gk, gs)
 	if err != nil {
 		log.Fatalf("parse grok config to yaml error: %v", err)

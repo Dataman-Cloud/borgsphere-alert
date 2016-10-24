@@ -18,11 +18,15 @@ type TCPOutput struct {
 
 func init() {
 	tcpOutput := new(TCPOutput)
+	if config.GetConfig().Output["tcp"] == nil {
+		return
+	}
 	err := config.ParseConfig(config.GetConfig().Output["tcp"], tcpOutput)
 	if err != nil {
 		log.Fatalf("parse tcpoutput config error: %v", err)
 		return
 	}
+
 	tcpOutput.Dial()
 
 	RegistryOutputModule("tcp", tcpOutput)

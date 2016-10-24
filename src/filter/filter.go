@@ -5,7 +5,7 @@ import (
 	"reflect"
 
 	"github.com/Dataman-Cloud/borgsphere-alert/src/output"
-	//"github.com/Dataman-Cloud/borgsphere-alert/src/utils/config"
+	"github.com/Dataman-Cloud/borgsphere-alert/src/utils/config"
 	//log "github.com/Sirupsen/logrus"
 )
 
@@ -43,15 +43,19 @@ func (f *Filter) Read() {
 
 			var rv interface{}
 
-			for _, v := range f.Filters {
-				rv = reflect.ValueOf(v).
-					MethodByName("Read").
-					Call([]reflect.Value{reflect.ValueOf(rm)})[0].
-					Interface()
+			for _, v := range config.GetConfig().Filter {
+				for k, _ := range v {
+					rv = reflect.ValueOf(f.Filters[k]).
+						MethodByName("Read").
+						Call([]reflect.Value{reflect.ValueOf(rm)})[0].
+						Interface()
+				}
 			}
 
-			for _, v := range output.GetOutput().OutputServer {
-				reflect.ValueOf(v).MethodByName("Send").Call([]reflect.Value{reflect.ValueOf(rv)})
+			if output.GetOutput() != nil {
+				for _, v := range output.GetOutput().OutputServer {
+					reflect.ValueOf(v).MethodByName("Send").Call([]reflect.Value{reflect.ValueOf(rv)})
+				}
 			}
 		}
 	}

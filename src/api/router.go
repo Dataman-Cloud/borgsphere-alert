@@ -8,6 +8,7 @@ import (
 
 	log "github.com/Sirupsen/logrus"
 	"github.com/gin-gonic/gin"
+	"github.com/prometheus/client_golang/prometheus"
 )
 
 type Alert struct {
@@ -24,6 +25,8 @@ func Load(middleware ...gin.HandlerFunc) http.Handler {
 	r.Use(logger.Ginrus(log.StandardLogger(), time.RFC3339Nano, false))
 
 	r.GET("/ping", alert.Create)
+	r.POST("/ping", alert.Create)
+	r.GET("/metrics", gin.WrapH(prometheus.Handler()))
 
 	return r
 }
