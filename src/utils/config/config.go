@@ -26,7 +26,7 @@ func GetConfig() *Config {
 }
 
 func Init() {
-	envFile := flag.String("config", "env_file.yaml", "")
+	envFile := flag.String("config", "config.yaml", "")
 	if y, err := ioutil.ReadFile(*envFile); err != nil {
 		log.Fatalf("read yaml config file error: %v", err)
 	} else {
